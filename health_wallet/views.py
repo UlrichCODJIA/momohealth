@@ -77,6 +77,7 @@ def deposit(request):
         print("FAILED")
         transaction.status = "failed"
 
+    is_verified = monitor_transaction(transaction)
     new_balance = balance(wallet)
 
     return Response({"transaction_id": transaction.id, "new_balance": new_balance})
@@ -128,3 +129,42 @@ def balance(wallet):
     difference = credit_total - debit_total
     print(f"======================================={difference}")
     return difference
+
+
+def is_rapid_succession_of_transactions(user):
+    time_threshold = timezone.now() - timedelta(minutes=10)
+    recent_transactions_count = Transaction.objects.filter(
+        user=user, created_at__gte=time_threshold
+    ).count()
+    return recent_transactions_count > 3
+
+
+def flag_transaction_as_suspicious(transaction):
+    transaction.status = "flagged"
+    transaction.save()
+    send_fraud_alert_email(transaction)
+
+
+def monitor_transaction(transaction):
+    if transaction.amount > 10000:
+        flag_transaction_as_suspicious(transaction)
+        return True
+
+    if is_rapid_succession_of_transactions(transaction.user):
+        flag_transaction_as_suspicious(transaction)
+        return True
+    return False
+
+
+def send_fraud_alert_email(transaction):
+    subject = "Suspicious Transaction Alert"
+    message = f"A suspicious transaction was detected: Transaction ID {transaction.transaction_id}"
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [
+            user_role.user.email
+            for user_role in UserRole.objects.filter(role__name="admin")
+        ],
+    )
