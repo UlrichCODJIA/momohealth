@@ -1,9 +1,26 @@
 from .models import Transaction, Wallet
+from rest_framework import generics
 from django.db.models import Sum, DecimalField
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+
+from .serializers import TransactionSerializer
+
+
+
+class TransactionList(generics.ListAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+
+        queryset = super().get_queryset()
+        return queryset.filter(wallet__user=user)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -22,6 +39,7 @@ def deposit(request):
 
     return Response({"transaction_id": transaction.id, "new_balance": new_balance})
 
+def balance(wallet):
     credit_total = Transaction.objects.filter(transaction_type=Transaction.CREDIT, wallet=wallet).aggregate(
     credit_total=Sum('amount', output_field=DecimalField())
     )['credit_total'] or 0
@@ -34,3 +52,4 @@ def deposit(request):
     difference = credit_total - debit_total
     print(f"======================================={difference}")
     return difference
+
