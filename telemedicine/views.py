@@ -25,6 +25,40 @@ class AppointmentCreateView(CreateAPIView):
         serializer.save(user=self.request.user, provider=provider)
 
 
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def cancel_appointment(request):
+    # Récupérez l'ID à partir des données de la requête
+    appointment_id = request.data.get("appointment_id")
+
+    # Vérifiez si l'ID est fourni dans la requête
+    if not appointment_id:
+        return Response(
+            {"error": "L'ID de l'élément à mettre à jour est requis."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    try:
+        appointment = Appointment.objects.get(id=appointment_id)
+    except Appointment.DoesNotExist:
+        return Response(
+            {"error": "Rendez-vous non trouvé."}, status=status.HTTP_404_NOT_FOUND
+        )
+
+    # Vérifiez si l'utilisateur envoyant la requête est autorisé à effectuer la mise à jour
+    if request.user != appointment.user:
+        return Response(
+            {"error": "Vous n'êtes pas autorisé à mettre à jour cet élément."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
+
+    # Mettez à jour le statut directement
+    appointment.status = Appointment.CANCELLED
+    appointment.save()
+
+    return Response({"message": "Appointment cancelled successfully"})
+
+
 class AppointmentUpdateView(UpdateAPIView):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
