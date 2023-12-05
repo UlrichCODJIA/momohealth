@@ -32,7 +32,7 @@ class HealthNewsScreen extends GetWidget<HealthNewsController> {
         leadingWidth: 31.h,
         leading: AppbarLeadingImage(
             imagePath: ImageConstant.imgArrowLeft,
-            margin: EdgeInsets.only(left: 25.h, top: 15.v, bottom: 15.v),
+            margin: EdgeInsets.only(top: 15.v, bottom: 15.v),
             onTap: () {
               onTapArrowLeft();
             }),

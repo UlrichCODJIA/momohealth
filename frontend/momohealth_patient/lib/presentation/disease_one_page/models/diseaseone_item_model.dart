@@ -1,20 +1,20 @@
 import '../../../core/app_export.dart';
 
 /// This class is used in the [diseaseone_item_widget] screen.
-class DiseaseoneItemModel {
-  DiseaseoneItemModel({
-    this.heartDisease,
-    this.heartDisease1,
+class InfoCategoryModel {
+  InfoCategoryModel({
+    this.image,
+    this.name,
     this.id,
   }) {
-    heartDisease = heartDisease ?? Rx(ImageConstant.imgPage1);
-    heartDisease1 = heartDisease1 ?? Rx("Heart Disease");
+    image = image ?? Rx(ImageConstant.imgPage1);
+    name = name ?? Rx("Maladie du coeur");
     id = id ?? Rx("");
   }
 
-  Rx<String>? heartDisease;
+  Rx<String>? image;
 
-  Rx<String>? heartDisease1;
+  Rx<String>? name;
 
   Rx<String>? id;
 }

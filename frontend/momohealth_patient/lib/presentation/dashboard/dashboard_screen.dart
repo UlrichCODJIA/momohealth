@@ -49,7 +49,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 ),
                 TapEffect(
                   onTap: () {
-                    Get.to(() => DiseaseOnePage());
+                    Get.to(() => InfoCategoryPage());
                     // Get.to(() => ProfileScreen());
                   },
                   child: selectWidget(

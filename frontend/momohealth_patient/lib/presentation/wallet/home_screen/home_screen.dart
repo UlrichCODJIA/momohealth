@@ -1,11 +1,11 @@
+import '../../../models/transaction_model.dart';
+import '../../../models/wallet_model.dart';
 import '/core/app_export.dart';
 import '/widgets/custom_text_form_field.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../../../widgets/app_bar/appbar_subtitle_three.dart';
 import '../../../widgets/app_bar/appbar_title.dart';
 import '../../../widgets/app_bar/appbar_trailing_image.dart';
 import '../../../widgets/app_bar/custom_app_bar.dart';
@@ -78,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                           color:
                               theme.colorScheme.onErrorContainer.withOpacity(1),
                         )),
-                    Text("2000 XOF",
+                    Text("${wallet.balance} XOF",
                         style: theme.textTheme.titleMedium!.copyWith(
                           fontSize: 32.fSize,
                           fontWeight: FontWeight.w700,
@@ -242,62 +242,62 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                       12.height,
-                      ...List.generate(
-                          12,
-                          (index) => Container(
-                                margin: const EdgeInsets.only(bottom: 8),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(12),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: .1,
-                                        blurRadius: .1,
-                                        offset: Offset(1, 1),
-                                      ),
-                                    ]),
-                                // color: Colors.blue.withOpacity(.2),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
+                      ...List.generate(transactionDummyData.length, (index) {
+                        TransactionModel item = transactionDummyData[index];
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  spreadRadius: .1,
+                                  blurRadius: .1,
+                                  offset: Offset(1, 1),
+                                ),
+                              ]),
+                          // color: Colors.blue.withOpacity(.2),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                // Container(
+                                //   height: 54,
+                                //   width: 54,
+                                //   decoration: BoxDecoration(
+                                //       shape: BoxShape.circle,
+                                //       color: Colors.grey.withOpacity(.9)),
+                                // ),
+                                20.width,
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      // Container(
-                                      //   height: 54,
-                                      //   width: 54,
-                                      //   decoration: BoxDecoration(
-                                      //       shape: BoxShape.circle,
-                                      //       color: Colors.grey.withOpacity(.9)),
-                                      // ),
-                                      20.width,
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              "Nouveau dépôt",
-                                              style: TextStyle(fontSize: 18),
-                                            ),
-                                            6.height,
-                                            Text(
-                                                "${DateFormat('E MMM Y, HH:mm').format(DateTime.now())}")
-                                          ],
-                                        ),
+                                      Text(
+                                        "${item.transactionType}",
+                                        style: const TextStyle(fontSize: 18),
                                       ),
-                                      10.width,
-                                      const Text(
-                                        "10.000 F",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600),
-                                      )
+                                      6.height,
+                                      Text(DateFormat('E d MMM y, HH:mm')
+                                          .format(item.createdAt!))
                                     ],
                                   ),
                                 ),
-                              ))
+                                10.width,
+                                Text(
+                                  "${item.amount} F",
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      })
                     ],
                   ),
                 ),

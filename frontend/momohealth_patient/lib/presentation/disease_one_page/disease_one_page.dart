@@ -1,7 +1,7 @@
 import '../../widgets/app_bar/appbar_leading_image.dart';
 import '../../widgets/app_bar/appbar_subtitle_one.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
-import '../disease_one_page/widgets/diseaseone_item_widget.dart';
+import 'widgets/diseaseone_item_widget.dart';
 import '../info_list_screen/info_list_screen.dart';
 import 'controller/disease_one_controller.dart';
 import 'models/disease_one_model.dart';
@@ -9,14 +9,13 @@ import 'models/diseaseone_item_model.dart';
 import '/core/app_export.dart';
 import 'package:flutter/material.dart';
 
-class DiseaseOnePage extends StatelessWidget {
-  DiseaseOnePage({Key? key})
+class InfoCategoryPage extends StatelessWidget {
+  InfoCategoryPage({Key? key})
       : super(
           key: key,
         );
 
-  DiseaseOneController controller =
-      Get.put(DiseaseOneController(DiseaseOneModel().obs));
+  InfoCategoryController controller = Get.put(InfoCategoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ class DiseaseOnePage extends StatelessWidget {
         leadingWidth: 31.h,
         leading: AppbarLeadingImage(
             imagePath: ImageConstant.imgArrowLeft,
-            margin: EdgeInsets.only(left: 25.h, top: 15.v, bottom: 17.v),
+            margin: EdgeInsets.only(top: 15.v, bottom: 17.v),
             onTap: () {
               Get.back();
             }),
@@ -68,16 +67,15 @@ class DiseaseOnePage extends StatelessWidget {
               crossAxisSpacing: 15.h,
             ),
             physics: const BouncingScrollPhysics(),
-            itemCount: controller
-                .diseaseOneModelObj.value.diseaseoneItemList.value.length,
+            itemCount: controller.infoCategoryListObj.value.length,
             itemBuilder: (context, index) {
-              DiseaseoneItemModel model = controller
-                  .diseaseOneModelObj.value.diseaseoneItemList.value[index];
+              InfoCategoryModel model =
+                  controller.infoCategoryListObj.value[index];
               return GestureDetector(
                 onTap: () {
                   Get.to(() => const InfoListScreen());
                 },
-                child: DiseaseoneItemWidget(
+                child: InfoCategoryItemWidget(
                   model,
                 ),
               );

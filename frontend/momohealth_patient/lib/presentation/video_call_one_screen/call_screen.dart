@@ -1,3 +1,6 @@
+import '../../widgets/app_bar/appbar_leading_image.dart';
+import '../../widgets/app_bar/appbar_subtitle_one.dart';
+import '../../widgets/app_bar/custom_app_bar.dart';
 import '/core/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,6 +39,7 @@ class VideoCallScreenState extends State<VideoCallScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: theme.colorScheme.onPrimaryContainer.withOpacity(1),
+        appBar: _buildAppBar(),
         body: Container(
           padding: const EdgeInsets.only(
               // left: 16.0, right: 16.0,
@@ -47,28 +51,31 @@ class VideoCallScreenState extends State<VideoCallScreen> {
             backgroundColor:
                 theme.colorScheme.onPrimaryContainer.withOpacity(1),
           ),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  8.width,
-                  AppbarLeadingIconbutton(
-                      imagePath: ImageConstant.imgArrowLeft,
-                      margin: EdgeInsets.only(left: 25.h, bottom: 80.v),
-                      onTap: () {
-                        Get.back();
-                      }),
-                  8.width,
-                  Text('video_call'.tr, style: boldTextStyle()).expand(),
-                ],
-              ),
-              Expanded(
-                  child: VideoCallComponent(
-                callID: widget.callID,
-              )),
-            ],
+          child: VideoCallComponent(
+            callID: widget.callID,
           ),
         ),
+      ),
+    );
+  }
+
+  /// Section Widget
+  PreferredSizeWidget _buildAppBar() {
+    return CustomAppBar(
+      height: 40.v,
+      leadingWidth: 31.h,
+      leading: AppbarLeadingImage(
+          imagePath: ImageConstant.imgVectorOnerrorcontainer,
+          margin: EdgeInsets.only(
+            top: 13.v,
+            bottom: 15.v,
+          ),
+          onTap: () {
+            Get.back();
+          }),
+      centerTitle: true,
+      title: AppbarSubtitleOne(
+        text: "Télé-medecine".toUpperCase(),
       ),
     );
   }

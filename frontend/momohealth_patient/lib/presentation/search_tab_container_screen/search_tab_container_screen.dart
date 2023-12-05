@@ -43,7 +43,7 @@ class _SearchTabContainerScreenState extends State<SearchTabContainerScreen> {
         leadingWidth: 33.h,
         leading: AppbarLeadingImage(
             imagePath: ImageConstant.imgArrowLeft,
-            margin: EdgeInsets.only(left: 27.h, top: 16.v, bottom: 16.v),
+            margin: EdgeInsets.only(top: 16.v, bottom: 16.v),
             onTap: () {
               onTapArrowLeft();
             }),

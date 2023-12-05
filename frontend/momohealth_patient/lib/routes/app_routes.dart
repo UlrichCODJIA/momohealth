@@ -250,13 +250,13 @@ class AppRoutes {
         VideoCallTwoBinding(),
       ],
     ),
-    GetPage(
-      name: videoCallScreen,
-      page: () => const VideoCallScreen(),
-      bindings: [
-        VideoCallBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: videoCallScreen,
+    //   page: () => const VideoCallScreen(),
+    //   bindings: [
+    //     VideoCallBinding(),
+    //   ],
+    // ),
     GetPage(
       name: messageScreen,
       page: () => const MessageScreen(),

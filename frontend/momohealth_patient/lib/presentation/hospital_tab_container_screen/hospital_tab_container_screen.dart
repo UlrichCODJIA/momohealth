@@ -43,7 +43,7 @@ class HospitalTabContainerScreen
         leadingWidth: 49.h,
         leading: AppbarLeadingImage(
             imagePath: ImageConstant.imgArrowLeft,
-            margin: EdgeInsets.only(left: 43.h, top: 15.v, bottom: 15.v),
+            margin: EdgeInsets.only(top: 15.v, bottom: 15.v),
             onTap: () {
               onTapArrowLeft();
             }),

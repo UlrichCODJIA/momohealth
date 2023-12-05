@@ -1,3 +1,7 @@
+import 'package:intl/intl.dart';
+import 'package:momohealth_patient/presentation/appointment_screen/models/status_model.dart';
+
+import '../video_call_one_screen/call_screen.dart';
 import '/presentation/video_call_screen/video_call_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -9,6 +13,8 @@ import '/widgets/app_bar/custom_app_bar.dart';
 import '/widgets/custom_elevated_button.dart';
 import '/widgets/custom_outlined_button.dart';
 import 'package:flutter/material.dart';
+
+import 'models/appointment_model.dart';
 
 // ignore_for_file: must_be_immutable
 class AppointmentScreen extends StatefulWidget {
@@ -39,36 +45,30 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 margin: EdgeInsets.symmetric(horizontal: 25.h),
                 child: Row(
                   children: [
-                    ...controller.optionList
+                    ...controller.statuses
                         .map((e) => Expanded(
                                 child: GestureDetector(
                               onTap: () {
-                                controller.appointmentOptionSelected.value =
-                                    controller.optionList.indexOf(e);
+                                controller.statusSelected.value = e.value!;
                               },
                               child: Container(
                                 height: double.maxFinite,
                                 decoration: BoxDecoration(
-                                  borderRadius: controller
-                                              .appointmentOptionSelected
-                                              .value ==
-                                          1
-                                      ? null
-                                      : controller.appointmentOptionSelected
-                                                  .value ==
-                                              0
-                                          ? BorderRadius.horizontal(
-                                              left: Radius.circular(24.v))
-                                          : BorderRadius.horizontal(
-                                              right: Radius.circular(24.v)),
-                                  color: controller.optionList.indexOf(e) ==
-                                          controller
-                                              .appointmentOptionSelected.value
-                                      ? Colors.blue
-                                      : null,
+                                  borderRadius: BorderRadius.circular(24.v),
+                                  // controller.statusSelected.value == e.value
+                                  //     ? null
+                                  //     : controller.statusSelected.value == 0
+                                  //         ? BorderRadius.horizontal(
+                                  //             left: Radius.circular(24.v))
+                                  //         : BorderRadius.horizontal(
+                                  //             right: Radius.circular(24.v)),
+                                  color:
+                                      e.value == controller.statusSelected.value
+                                          ? Colors.blue
+                                          : null,
                                 ),
                                 child: Text(
-                                  e,
+                                  e.name!,
                                   style: theme.textTheme.titleSmall,
                                 ).center(),
                               ),
@@ -80,20 +80,22 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             }),
             12.height,
             Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(top: 17.v),
-                child: Container(
-                  height: 728.v,
-                  width: 325.h,
-                  margin: EdgeInsets.symmetric(horizontal: 25.h),
-                  child: ListView(
-                    children: [
-                      _buildCancelRow(),
-                      SizedBox(height: 10.v),
-                    ],
-                  ),
-                ),
-              ),
+              child: Obx(() {
+                return ListView.builder(
+                  itemCount: controller.dummyAppointmentData
+                      .where((element) =>
+                          element.status!.value ==
+                          controller.statusSelected.value)
+                      .length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _buildRow(controller.dummyAppointmentData
+                        .where((element) =>
+                            element.status!.value ==
+                            controller.statusSelected.value)
+                        .toList()[index]);
+                  },
+                );
+              }),
             ),
           ],
         ),
@@ -105,30 +107,34 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
       height: 40.v,
-      leadingWidth: 31.h,
-      leading: AppbarLeadingImage(
-        imagePath: ImageConstant.imgVectorOnerrorcontainer,
-        margin: EdgeInsets.only(
-          left: 25.h,
-          top: 13.v,
-          bottom: 15.v,
-        ),
-      ),
+      // leadingWidth: 31.h,
+      // leading: AppbarLeadingImage(
+      //   imagePath: ImageConstant.imgVectorOnerrorcontainer,
+      //   margin: EdgeInsets.only(
+      //     left: 25.h,
+      //     top: 13.v,
+      //     bottom: 15.v,
+      //   ),
+      // ),
       centerTitle: true,
       title: AppbarSubtitleOne(
-        text: "Appointment".toUpperCase(),
+        text: "Rendez-vous".toUpperCase(),
       ),
     );
   }
 
   /// Section Widget
-  Widget _buildCancelRow() {
+  Widget _buildRow(AppointmentModel appointment) {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 15.h,
         vertical: 14.v,
       ),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 17),
       decoration: AppDecoration.white.copyWith(
+        color: appointment.status!.value == "cancelled"
+            ? theme.colorScheme.errorContainer.withOpacity(.2)
+            : null,
         borderRadius: BorderRadiusStyle.roundedBorder15,
       ),
       child: Padding(
@@ -139,66 +145,52 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "msg_benefix_pill_remainder".tr,
-                  style: theme.textTheme.titleSmall,
-                ),
-                Opacity(
-                  opacity: 0.5,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 3.v),
-                    child: Text(
-                      "lbl_11_45_am".tr,
-                      style: theme.textTheme.labelMedium,
-                    ),
-                  ),
-                ),
-              ],
+            Text(
+              "Dr. ${appointment.provider!.username}",
+              style: theme.textTheme.titleLarge,
             ),
             SizedBox(height: 8.v),
             Opacity(
               opacity: 0.5,
-              child: Container(
-                width: 225.h,
-                margin: EdgeInsets.only(right: 11.h),
+              child: Padding(
+                padding: EdgeInsets.only(top: 3.v),
                 child: Text(
-                  "msg_discovered_had_get2".tr,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
+                  DateFormat("d MMM y à HH:mm")
+                      .format(appointment.scheduledTime!),
                   style: CustomTextStyles.labelLargeOnErrorContainer,
                 ),
               ),
             ),
             SizedBox(height: 14.v),
-            Padding(
-              padding: EdgeInsets.only(right: 16.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: CustomOutlinedButton(
-                      text: "Appeler".tr,
-                      margin: EdgeInsets.only(right: 10.h),
-                      onPressed: () {
-                        Get.to(() => const VideoCallScreen());
-                      },
+            if (appointment.status!.value == "pending")
+              Padding(
+                padding: EdgeInsets.only(right: 16.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: CustomOutlinedButton(
+                        text: "Appeler".tr,
+                        margin: EdgeInsets.only(right: 10.h),
+                        onPressed: () {
+                          Get.to(() => const VideoCallScreen(
+                                callID: "12345678",
+                              ));
+                        },
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: CustomElevatedButton(
-                      height: 45.v,
-                      text: "lbl_stop".tr,
-                      margin: EdgeInsets.only(left: 10.h),
-                      buttonTextStyle:
-                          CustomTextStyles.bodySmallOnPrimaryContainer_2,
+                    Expanded(
+                      child: CustomElevatedButton(
+                        height: 45.v,
+                        text: "lbl_stop".tr,
+                        margin: EdgeInsets.only(left: 10.h),
+                        buttonTextStyle:
+                            CustomTextStyles.bodySmallOnPrimaryContainer_2,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ),

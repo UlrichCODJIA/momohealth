@@ -21,12 +21,36 @@ class MedicationModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.medicationId;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['price'] = this.price;
-    data['available'] = this.available;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = medicationId;
+    data['name'] = name;
+    data['description'] = description;
+    data['price'] = price;
+    data['available'] = available;
     return data;
   }
 }
+
+List<MedicationModel> dummyData = [
+  MedicationModel(
+    medicationId: '1',
+    name: 'Paracetamol',
+    description: 'Pain reliever and fever reducer',
+    price: '5.99',
+    available: 'true',
+  ),
+  MedicationModel(
+    medicationId: '2',
+    name: 'Ibuprofen',
+    description: 'Nonsteroidal anti-inflammatory drug (NSAID)',
+    price: '7.49',
+    available: 'true',
+  ),
+  MedicationModel(
+    medicationId: '3',
+    name: 'Cetirizine',
+    description: 'Antihistamine used for allergies',
+    price: '4.99',
+    available: 'false',
+  ),
+];

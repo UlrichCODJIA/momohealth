@@ -4,17 +4,17 @@ import '/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class DiseaseoneItemWidget extends StatelessWidget {
-  DiseaseoneItemWidget(
-    this.diseaseoneItemModelObj, {
+class InfoCategoryItemWidget extends StatelessWidget {
+  InfoCategoryItemWidget(
+    this.item, {
     Key? key,
   }) : super(
           key: key,
         );
 
-  DiseaseoneItemModel diseaseoneItemModelObj;
+  InfoCategoryModel item;
 
-  var controller = Get.find<DiseaseOneController>();
+  var controller = Get.find<InfoCategoryController>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class DiseaseoneItemWidget extends StatelessWidget {
             ),
             child: Obx(
               () => CustomImageView(
-                imagePath: diseaseoneItemModelObj.heartDisease!.value,
+                imagePath: item.image!.value,
                 height: 40.adaptSize,
                 width: 40.adaptSize,
                 alignment: Alignment.bottomCenter,
@@ -52,7 +52,7 @@ class DiseaseoneItemWidget extends StatelessWidget {
           SizedBox(height: 18.v),
           Obx(
             () => Text(
-              diseaseoneItemModelObj.heartDisease1!.value,
+              item.name!.value,
               style: theme.textTheme.titleSmall,
             ),
           ),

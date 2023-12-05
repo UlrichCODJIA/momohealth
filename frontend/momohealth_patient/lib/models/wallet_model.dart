@@ -3,7 +3,7 @@ class WalletModel {
   String? userId;
   String? balance;
   String? isActive;
-  String? createdAt;
+  DateTime? createdAt;
 
   WalletModel(
       {this.walletId,
@@ -17,16 +17,24 @@ class WalletModel {
     userId = json['user_id'];
     balance = json['balance'];
     isActive = json['is_active'];
-    createdAt = json['created_at'];
+    createdAt = DateTime.parse("${json['created_at']}");
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.walletId;
-    data['user_id'] = this.userId;
-    data['balance'] = this.balance;
-    data['is_active'] = this.isActive;
-    data['created_at'] = this.createdAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = walletId;
+    data['user_id'] = userId;
+    data['balance'] = balance;
+    data['is_active'] = isActive;
+    data['created_at'] = createdAt;
     return data;
   }
 }
+
+WalletModel wallet = WalletModel(
+  walletId: '1',
+  userId: 'user_123',
+  balance: '150.00',
+  isActive: 'true',
+  createdAt: DateTime.parse('2023-12-05T15:30:00Z'),
+);

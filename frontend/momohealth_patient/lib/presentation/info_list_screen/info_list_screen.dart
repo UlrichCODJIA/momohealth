@@ -1,3 +1,5 @@
+import 'package:nb_utils/nb_utils.dart';
+
 import '../disease_screen/disease_screen.dart';
 import 'controller/info_list_controller.dart';
 import '/core/app_export.dart';
@@ -28,22 +30,18 @@ class InfoListScreen extends GetWidget<InfoListController> {
           child: SingleChildScrollView(
             padding: EdgeInsets.only(top: 17.v),
             child: Container(
-              height: 728.v,
-              width: 325.h,
-              margin: EdgeInsets.symmetric(horizontal: 25.h),
-              child: Container(
-                decoration: AppDecoration.outlineOnPrimary1,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Get.to(() => const DiseaseScreen());
-                        },
-                        child: _buildImSeeingPeopleRow()),
-                    SizedBox(height: 10.v),
-                  ],
-                ),
+              padding: EdgeInsets.only(bottom: 10.v, left: 12.h, right: 12.h),
+              decoration: AppDecoration.outlineOnPrimary1,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Get.to(() => const DiseaseScreen());
+                      },
+                      child: _buildImSeeingPeopleRow()),
+                  SizedBox(height: 10.v),
+                ],
               ),
             ),
           ),
@@ -58,16 +56,17 @@ class InfoListScreen extends GetWidget<InfoListController> {
       height: 40.v,
       leadingWidth: 31.h,
       leading: AppbarLeadingImage(
-        imagePath: ImageConstant.imgVectorOnerrorcontainer,
-        margin: EdgeInsets.only(
-          left: 25.h,
-          top: 13.v,
-          bottom: 15.v,
-        ),
-      ),
+          imagePath: ImageConstant.imgVectorOnerrorcontainer,
+          margin: EdgeInsets.only(
+            top: 13.v,
+            bottom: 15.v,
+          ),
+          onTap: () {
+            Get.back();
+          }),
       centerTitle: true,
       title: AppbarSubtitleOne(
-        text: "lbl_notification".tr.toUpperCase(),
+        text: "Info Santé".toUpperCase(),
       ),
     );
   }
@@ -90,27 +89,33 @@ class InfoListScreen extends GetWidget<InfoListController> {
               imagePath: ImageConstant.imgGroup84,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 15.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "msg_i_m_seeing_people".tr,
-                  style: theme.textTheme.titleSmall,
-                ),
-                SizedBox(height: 3.v),
-                Opacity(
-                  opacity: 0.5,
-                  child: Text(
-                    "msg_heilbron_is_a_board".tr,
-                    style: CustomTextStyles.labelLargeOnErrorContainer,
-                  ),
-                ),
-              ],
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 15.h),
+              child:
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  Text(
+                "Crise Cardiaque: Informations et mesures d'urgence",
+                style: theme.textTheme.titleSmall,
+                softWrap: true,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+              // SizedBox(height: 3.v),
+              // Opacity(
+              //   opacity: 0.5,
+              //   child: Text(
+              //     "msg_heilbron_is_a_board".tr,
+              //     style: CustomTextStyles.labelLargeOnErrorContainer,
+              //   ),
+              // ),
+              //   ],
+              // ),
             ),
           ),
-          const Spacer(),
+          12.width,
           Opacity(
             opacity: 0.5,
             child: Padding(

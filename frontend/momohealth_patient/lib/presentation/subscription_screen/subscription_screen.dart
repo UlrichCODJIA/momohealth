@@ -214,7 +214,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
         leadingWidth: 33.h,
         leading: AppbarLeadingImage(
             imagePath: ImageConstant.imgArrowLeft,
-            margin: EdgeInsets.only(left: 27.h, top: 14.v, bottom: 14.v),
+            margin: EdgeInsets.only(top: 14.v, bottom: 14.v),
             onTap: () {
               onTapArrowLeft();
             }),

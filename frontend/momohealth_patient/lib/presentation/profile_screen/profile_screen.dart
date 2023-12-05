@@ -1,5 +1,6 @@
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../models/user_model.dart';
 import '../profile_screen/widgets/profilesection_item_widget.dart';
 import 'controller/profile_controller.dart';
 import 'models/profilesection_item_model.dart';
@@ -96,14 +97,14 @@ class ProfileScreen extends GetWidget<ProfileController> {
                 ),
                 SizedBox(height: 15.v),
                 Text(
-                  "lbl_paul_m_timmer".tr,
+                  "${user.username}",
                   style: theme.textTheme.titleMedium,
                 ),
                 SizedBox(height: 4.v),
                 Opacity(
                   opacity: 0.5,
                   child: Text(
-                    "lbl_general_manager".tr,
+                    "${user.email}".tr,
                     style: CustomTextStyles.labelLargeOnErrorContainer,
                   ),
                 ),
@@ -130,7 +131,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                   iconPath: ImageConstant.imgIcon,
                   bgColor: appTheme.lightBlueA200.withOpacity(.1),
                   title: "lbl_name".tr,
-                  subTitle: "lbl_paul_m_timmer".tr),
+                  subTitle: "${user.username}"),
             ),
             12.width,
             Expanded(
@@ -138,7 +139,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                   iconPath: ImageConstant.imgIconOnerror,
                   bgColor: appTheme.red200.withOpacity(.1),
                   title: "lbl_age".tr,
-                  subTitle: "lbl_25_year".tr),
+                  subTitle: "22 ans"),
             )
           ],
         ),
@@ -150,16 +151,16 @@ class ProfileScreen extends GetWidget<ProfileController> {
               child: infoWidget(
                   iconPath: ImageConstant.imgIcon,
                   bgColor: appTheme.lightBlueA200.withOpacity(.1),
-                  title: "lbl_name".tr,
-                  subTitle: "lbl_paul_m_timmer".tr),
+                  title: "Groupe sanguin".tr,
+                  subTitle: "AB+"),
             ),
             12.width,
             Expanded(
               child: infoWidget(
                   iconPath: ImageConstant.imgIconOnerror,
                   bgColor: appTheme.red200.withOpacity(.1),
-                  title: "lbl_age".tr,
-                  subTitle: "lbl_25_year".tr),
+                  title: "Sexe".tr,
+                  subTitle: "M".tr),
             )
           ],
         ),
@@ -171,16 +172,17 @@ class ProfileScreen extends GetWidget<ProfileController> {
               child: infoWidget(
                   iconPath: ImageConstant.imgIcon,
                   bgColor: appTheme.lightBlueA200.withOpacity(.1),
-                  title: "lbl_name".tr,
-                  subTitle: "lbl_paul_m_timmer".tr),
+                  title: "Allergie".tr,
+                  subTitle: "Quinine".tr),
             ),
             12.width,
-            Expanded(
-              child: infoWidget(
-                  iconPath: ImageConstant.imgIconOnerror,
-                  bgColor: appTheme.red200.withOpacity(.1),
-                  title: "lbl_age".tr,
-                  subTitle: "lbl_25_year".tr),
+            const Expanded(
+              child: SizedBox(),
+              // child: infoWidget(
+              //     iconPath: ImageConstant.imgIconOnerror,
+              //     bgColor: appTheme.red200.withOpacity(.1),
+              //     title: "lbl_age".tr,
+              //     subTitle: "lbl_25_year".tr),
             )
           ],
         ),

@@ -246,9 +246,8 @@ class _HomeContainerState extends State<HomeContainer> {
                           "msg_lets_find_your_specialist".tr,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: CustomTextStyles.titleLargeRegular.copyWith(
-                            height: 1.40,
-                          ),
+                          style: CustomTextStyles.titleLargeRegular
+                              .copyWith(height: 1.10, fontSize: 20.0),
                         ),
                       ),
                     ),
@@ -343,8 +342,10 @@ class _HomeContainerState extends State<HomeContainer> {
                   launchUrl(
                     model.url!.value.isInt
                         ? Uri.parse("tel://${model.url}")
-                        : Uri.parse("${model.url}"),
-                    mode: LaunchMode.inAppWebView,
+                        : Uri.parse(model.url!.value),
+                    mode: model.url!.value.isInt
+                        ? LaunchMode.externalApplication
+                        : LaunchMode.inAppWebView,
                   );
                 },
                 child: EmergencyserviceItemWidget(
