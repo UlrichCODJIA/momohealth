@@ -67,7 +67,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                       BorderRadiusStyle.circleBorder45,
                                 ),
                                 child: CustomImageView(
-                                  imagePath: ImageConstant.imgEllipse62,
+                                  imagePath: ImageConstant.imgGroup915,
                                   height: 90.adaptSize,
                                   width: 90.adaptSize,
                                   radius: BorderRadius.circular(
@@ -97,14 +97,14 @@ class ProfileScreen extends GetWidget<ProfileController> {
                 ),
                 SizedBox(height: 15.v),
                 Text(
-                  "${user.username}",
+                  "${userRepository.user!.firstName} ${userRepository.user!.lastName}",
                   style: theme.textTheme.titleMedium,
                 ),
                 SizedBox(height: 4.v),
                 Opacity(
                   opacity: 0.5,
                   child: Text(
-                    "${user.email}".tr,
+                    (userRepository.user!.email ?? '').tr,
                     style: CustomTextStyles.labelLargeOnErrorContainer,
                   ),
                 ),
@@ -131,7 +131,8 @@ class ProfileScreen extends GetWidget<ProfileController> {
                   iconPath: ImageConstant.imgIcon,
                   bgColor: appTheme.lightBlueA200.withOpacity(.1),
                   title: "lbl_name".tr,
-                  subTitle: "${user.username}"),
+                  subTitle:
+                      "${userRepository.user!.firstName} ${userRepository.user!.lastName}"),
             ),
             12.width,
             Expanded(

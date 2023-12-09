@@ -6,14 +6,23 @@ import 'emergencyservice_item_model.dart';
 class HomeModel {
   Rx<List<EmergencyserviceItemModel>> emergencyserviceItemList = Rx([
     EmergencyserviceItemModel(
-        quickHelp: ImageConstant.imgImage47.obs,
-        quickHelp1: "Quick Help".obs,
+        quickHelp: ImageConstant.siren.obs,
+        quickHelp1: "Urgence".obs,
         url: "21301769".obs),
     EmergencyserviceItemModel(
-        quickHelp1: "Hospital".obs,
+        quickHelp: ImageConstant.hospital.obs,
+        quickHelp1: "Hopital".obs,
         url: "https://www.google.com/maps/search/Hopital".obs),
-    EmergencyserviceItemModel(quickHelp1: "Pompier".obs, url: "118".obs),
     EmergencyserviceItemModel(
+        quickHelp: ImageConstant.pharmacy.obs,
+        quickHelp1: "Pharmacie".obs,
+        url: "https://www.google.com/maps/search/Pharmacy".obs),
+    EmergencyserviceItemModel(
+        quickHelp: ImageConstant.firefighter.obs,
+        quickHelp1: "Pompier".obs,
+        url: "118".obs),
+    EmergencyserviceItemModel(
+        quickHelp: ImageConstant.ambulance.obs,
         quickHelp1: "Ambulance".obs,
         url: "https://www.google.com/maps/search/Ambulance".obs)
   ]);

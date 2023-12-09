@@ -1,3 +1,5 @@
+import 'package:momohealth_patient/widgets/loading_widget.dart';
+
 import '../../../models/transaction_model.dart';
 import '../../../models/wallet_model.dart';
 import '/core/app_export.dart';
@@ -78,12 +80,14 @@ class HomeScreen extends StatelessWidget {
                           color:
                               theme.colorScheme.onErrorContainer.withOpacity(1),
                         )),
-                    Text("${wallet.balance} XOF",
-                        style: theme.textTheme.titleMedium!.copyWith(
-                          fontSize: 32.fSize,
-                          fontWeight: FontWeight.w700,
-                          color: theme.colorScheme.primary.withOpacity(1),
-                        )),
+                    Obx(() {
+                      return Text("${walletRepository.balance.value} XOF",
+                          style: theme.textTheme.titleMedium!.copyWith(
+                            fontSize: 32.fSize,
+                            fontWeight: FontWeight.w700,
+                            color: theme.colorScheme.primary.withOpacity(1),
+                          ));
+                    }),
                   ],
                 ),
               ),
@@ -109,18 +113,32 @@ class HomeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w600,
                                         fontSize: 28),
                                   ).paddingSymmetric(vertical: 18),
-                                  CustomTextFormField(
-                                    fillColor: Colors.blue.withOpacity(.2),
-                                    hintText: "Numero de téléphone",
-                                    textInputType: TextInputType.phone,
-                                  ).paddingOnly(bottom: 5),
+                                  // CustomTextFormField(
+                                  //   fillColor: Colors.blue.withOpacity(.2),
+                                  //   hintText: "Numero de téléphone",
+                                  //   textInputType: TextInputType.phone,
+                                  // ).paddingOnly(bottom: 5),
                                   CustomTextFormField(
                                     fillColor: Colors.blue.withOpacity(.2),
                                     hintText: "Montant",
+                                    controller:
+                                        walletRepository.amountController,
                                     textInputType: TextInputType.number,
                                   ).paddingOnly(bottom: 5),
                                   TapEffect(
-                                      onTap: () {},
+                                      onTap: () {
+                                        walletRepository
+                                            .deposit()
+                                            .then((value) => Get.snackbar(
+                                                "Succes",
+                                                "Nouveau dépôt enregistré",
+                                                backgroundColor: Colors.white))
+                                            .catchError((onError) {
+                                          return Get.snackbar(
+                                              "Erreur", "Veuillez rééssayer",
+                                              backgroundColor: Colors.white);
+                                        });
+                                      },
                                       child: Container(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 24, vertical: 12),
@@ -146,7 +164,8 @@ class HomeScreen extends StatelessWidget {
                               border: Border.all(color: Colors.grey)),
                           child: const Text(
                             "Dépôt",
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, color: white),
                           ).center(),
                         ),
                       ),
@@ -201,11 +220,13 @@ class HomeScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 12),
                           decoration: AppDecoration.fillPink.copyWith(
+                              color: const Color(0xFFFF90BC),
                               borderRadius: BorderRadius.circular(18),
                               border: Border.all(color: Colors.grey)),
                           child: const Text(
                             "Envoie",
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, color: white),
                           ).center(),
                         ),
                       ),
@@ -221,7 +242,7 @@ class HomeScreen extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   width: double.maxFinite,
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.white.withOpacity(.8),
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: const [
                         BoxShadow(
@@ -231,75 +252,87 @@ class HomeScreen extends StatelessWidget {
                           offset: Offset(0, 4),
                         ),
                       ]),
-                  child: ListView(
-                    children: [
-                      const Row(
-                        children: [
-                          Text(
-                            "Transactions récentes",
-                            style: TextStyle(fontSize: 18),
-                          )
-                        ],
-                      ),
-                      12.height,
-                      ...List.generate(transactionDummyData.length, (index) {
-                        TransactionModel item = transactionDummyData[index];
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  spreadRadius: .1,
-                                  blurRadius: .1,
-                                  offset: Offset(1, 1),
-                                ),
-                              ]),
-                          // color: Colors.blue.withOpacity(.2),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                // Container(
-                                //   height: 54,
-                                //   width: 54,
-                                //   decoration: BoxDecoration(
-                                //       shape: BoxShape.circle,
-                                //       color: Colors.grey.withOpacity(.9)),
-                                // ),
-                                20.width,
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "${item.transactionType}",
-                                        style: const TextStyle(fontSize: 18),
-                                      ),
-                                      6.height,
-                                      Text(DateFormat('E d MMM y, HH:mm')
-                                          .format(item.createdAt!))
-                                    ],
+                  child: Obx(() {
+                    return ListView(
+                      children: [
+                        const Row(
+                          children: [
+                            Text(
+                              "Transactions récentes",
+                              style: TextStyle(fontSize: 18),
+                            )
+                          ],
+                        ),
+                        12.height,
+                        ...List.generate(
+                            walletRepository.transactionDummyData.length,
+                            (index) {
+                          TransactionModel item = walletRepository
+                              .transactionDummyData.value[index];
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 8),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: .1,
+                                    blurRadius: .1,
+                                    offset: Offset(1, 1),
                                   ),
-                                ),
-                                10.width,
-                                Text(
-                                  "${item.amount} F",
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
-                                )
-                              ],
+                                ]),
+                            // color: Colors.blue.withOpacity(.2),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  // Container(
+                                  //   height: 54,
+                                  //   width: 54,
+                                  //   decoration: BoxDecoration(
+                                  //       shape: BoxShape.circle,
+                                  //       color: Colors.grey.withOpacity(.9)),
+                                  // ),
+                                  20.width,
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${item.transactionType}",
+                                          style: const TextStyle(fontSize: 18),
+                                        ),
+                                        6.height,
+                                        Text(DateFormat(
+                                                'E d MMM y, HH:mm', 'fr_FR')
+                                            .format(item.createdAt!))
+                                      ],
+                                    ),
+                                  ),
+                                  10.width,
+                                  Text(
+                                    "${item.amount} F",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: item.transactionType!
+                                                    .toLowerCase() ==
+                                                "debit"
+                                            ? const Color(0xFFFF90BC)
+                                            : theme.colorScheme.primary,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      })
-                    ],
-                  ),
+                          );
+                        })
+                      ],
+                    );
+                  }),
                 ),
               ),
 

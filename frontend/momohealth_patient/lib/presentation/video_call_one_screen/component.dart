@@ -27,8 +27,8 @@ class _VideoCallComponentState extends State<VideoCallComponent> {
             .toInt(), //zegoAppID, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
         appSign: dotenv.env[
             'ZEGO_ADMIN_ID']!, //zegoAdminCode, // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
-        userID: "userId", //userController.user.id,
-        userName: "user",
+        userID: "userId2", //userController.user.id,
+        userName: "user2",
         // userController.isMedecin
         //     ? "${userController.user.nom} ${userController.user.prenoms}"
         //     : "${userController.user.nom} ${userController.user.prenoms}, ${DateTime.now().year - userController.user.anneeDeNaissance}ans, ${userController.user.sexe}",

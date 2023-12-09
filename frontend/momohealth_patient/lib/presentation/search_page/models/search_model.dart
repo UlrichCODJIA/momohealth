@@ -7,24 +7,24 @@ class SearchModel {
   Rx<List<SearchItemModel>> searchItemList = Rx([
     SearchItemModel(
         drBrianHanner: ImageConstant.imgMaskGroup44x44.obs,
-        drBrianHanner1: "Dr. Brian Hanner".obs,
+        drBrianHanner1: "Dr. Jean COSSI".obs,
         time: "10AM - 12PM".obs,
         drBrianHanner2: ImageConstant.imgGroupRedA200.obs,
         fortyNine: "4.9".obs),
     SearchItemModel(
         drBrianHanner: ImageConstant.imgMaskGroup1.obs,
-        drBrianHanner1: "Dr. Anika Islam".obs,
+        drBrianHanner1: "Dr. Yabo SAGBO".obs,
         time: "10AM - 12PM".obs,
         drBrianHanner2: ImageConstant.imgGroupOnerrorcontainer.obs,
         fortyNine: "5.0".obs),
     SearchItemModel(
         drBrianHanner: ImageConstant.imgMaskGroup1.obs,
-        drBrianHanner1: "Dr. Anika Islam".obs,
+        drBrianHanner1: "Dr. Femi OLOWO".obs,
         time: "10AM - 12PM".obs,
         drBrianHanner2: ImageConstant.imgGroupOnerrorcontainer.obs),
     SearchItemModel(
         drBrianHanner: ImageConstant.imgMaskGroup1.obs,
-        drBrianHanner1: "Dr. Brown Hill".obs,
+        drBrianHanner1: "Dr. Tagnon CODJIA".obs,
         time: "10AM - 12PM".obs,
         drBrianHanner2: ImageConstant.imgGroupOnerrorcontainer.obs)
   ]);

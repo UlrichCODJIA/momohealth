@@ -146,7 +146,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Dr. ${appointment.provider!.username}",
+              "Dr. ${appointment.provider!.firstName} ${appointment.provider!.lastName}",
               style: theme.textTheme.titleLarge,
             ),
             SizedBox(height: 8.v),

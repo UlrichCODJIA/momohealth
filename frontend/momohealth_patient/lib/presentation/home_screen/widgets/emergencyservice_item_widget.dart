@@ -41,9 +41,9 @@ class EmergencyserviceItemWidget extends StatelessWidget {
                   imagePath: emergencyserviceItemModelObj.quickHelp!.value,
                   height: 48.v,
                   width: 65.h,
-                  radius: BorderRadius.circular(
-                    24.h,
-                  ),
+                  // radius: BorderRadius.circular(
+                  //   24.h,
+                  // ),
                   alignment: Alignment.center,
                 ),
               ),

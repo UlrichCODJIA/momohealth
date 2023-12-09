@@ -20,7 +20,7 @@ class LoadingWidget extends StatelessWidget {
               theme.colorScheme.onPrimaryContainer,
               theme.colorScheme.background
             ],
-            strokeWidth: 2,
+            strokeWidth: 5,
             backgroundColor: Colors.transparent,
             pathBackgroundColor: Colors.blue),
       )),

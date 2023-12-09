@@ -367,7 +367,7 @@ class _HomeContainerState extends State<HomeContainer> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "lbl_top_doctors".tr,
+            "Evenements".tr,
             style: CustomTextStyles.bodyLarge18,
           ),
           Padding(

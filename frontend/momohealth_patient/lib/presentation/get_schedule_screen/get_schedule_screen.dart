@@ -53,7 +53,7 @@ class _GetScheduleScreenState extends State<GetScheduleScreen> {
               onTapArrowLeft();
             }),
         centerTitle: true,
-        title: AppbarSubtitle(text: "lbl_get_schedule".tr.toUpperCase()));
+        title: AppbarSubtitle(text: "Obtenir un rendez-vous".toUpperCase()));
   }
 
   /// Section Widget
@@ -150,7 +150,7 @@ class _GetScheduleScreenState extends State<GetScheduleScreen> {
                       borderRadius: BorderRadiusStyle.roundedBorder15),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
                         Container(
                             height: 60.adaptSize,
@@ -172,24 +172,24 @@ class _GetScheduleScreenState extends State<GetScheduleScreen> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("lbl_dr_brown_hill".tr,
+                                  Text("Dr. Yabo SAGBO",
                                       style: theme.textTheme.titleSmall),
                                   SizedBox(height: 5.v),
                                   Opacity(
                                       opacity: 0.4,
-                                      child: Text("lbl_cardiologists2".tr,
+                                      child: Text("Généraliste".tr,
                                           style: CustomTextStyles
                                               .labelLargeOnErrorContainer_6))
                                 ])),
-                        Padding(
-                            padding: EdgeInsets.fromLTRB(97.h, 13.v, 5.h, 14.v),
-                            child: CustomIconButton(
-                                height: 33.adaptSize,
-                                width: 33.adaptSize,
-                                padding: EdgeInsets.all(10.h),
-                                decoration: IconButtonStyleHelper.fillGray,
-                                child: CustomImageView(
-                                    imagePath: ImageConstant.imgGroup143)))
+                        // Padding(
+                        //     padding: EdgeInsets.fromLTRB(97.h, 13.v, 5.h, 14.v),
+                        //     child: CustomIconButton(
+                        //         height: 33.adaptSize,
+                        //         width: 33.adaptSize,
+                        //         padding: EdgeInsets.all(10.h),
+                        //         decoration: IconButtonStyleHelper.fillGray,
+                        //         child: CustomImageView(
+                        //             imagePath: ImageConstant.imgGroup143)))
                       ])),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 26.v),
@@ -243,8 +243,8 @@ class _GetScheduleScreenState extends State<GetScheduleScreen> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                  DateFormat("MMMM, y").format(
-                                                      controller
+                                                  DateFormat("MMMM, y", 'fr_FR')
+                                                      .format(controller
                                                           .selectedDate.value),
                                                   style: CustomTextStyles
                                                       .titleMedium18),
@@ -307,7 +307,8 @@ class _GetScheduleScreenState extends State<GetScheduleScreen> {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          DateFormat("E")
+                                                          DateFormat(
+                                                                  "E", 'fr_FR')
                                                               .format(DateTime(
                                                                   DateTime.now()
                                                                       .year,
@@ -578,14 +579,14 @@ class _GetScheduleScreenState extends State<GetScheduleScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "lbl_dr_brown_hill".tr,
+                "Dr. Yabo SAGBO",
                 style: theme.textTheme.bodyLarge,
               ),
               SizedBox(height: 7.v),
               Opacity(
                 opacity: 0.6,
                 child: Text(
-                  "lbl_cardiologists2".tr,
+                  "Généraliste".tr,
                   style: CustomTextStyles.bodySmallOnErrorContainer_4,
                 ),
               ),
@@ -673,7 +674,7 @@ class _GetScheduleScreenState extends State<GetScheduleScreen> {
   }) {
     return Container(
       width: double.maxFinite,
-      height: 120.v,
+      height: 130.v,
       padding: EdgeInsets.symmetric(
         vertical: 22.v,
       ),
@@ -689,7 +690,7 @@ class _GetScheduleScreenState extends State<GetScheduleScreen> {
             time,
             textAlign: TextAlign.center,
             style: theme.textTheme.titleMedium!.copyWith(
-              fontSize: 14.fSize,
+              fontSize: 12.fSize,
               color: theme.colorScheme.onErrorContainer.withOpacity(1),
             ),
           ),

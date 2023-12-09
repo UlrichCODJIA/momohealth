@@ -1,3 +1,5 @@
+import 'package:nb_utils/nb_utils.dart';
+
 import '../controller/search_controller.dart';
 import '../models/search_item_model.dart';
 import '/core/app_export.dart';
@@ -46,8 +48,8 @@ class SearchItemWidget extends StatelessWidget {
                       imagePath: searchItemModelObj.drBrianHanner!.value,
                       height: 44.adaptSize,
                       width: 44.adaptSize,
-                      alignment: Alignment.center,
-                    ),
+                      alignment: Alignment.topCenter,
+                    ).cornerRadiusWithClipRRect(20),
                   ),
                 ),
                 Padding(

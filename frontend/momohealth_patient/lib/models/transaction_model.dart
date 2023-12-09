@@ -36,30 +36,3 @@ class TransactionModel {
 }
 
 
-// Exemple de données factices pour trois éléments TransactionModel
-  List<TransactionModel> transactionDummyData = [
-    TransactionModel(
-      transactionId: '1',
-      walletId: 'wallet_123',
-      amount: '50.00',
-      transactionType: 'Credit',
-      description: 'Received payment',
-      createdAt: DateTime.parse('2023-12-05T15:30:00Z'),
-    ),
-    TransactionModel(
-      transactionId: '2',
-      walletId: 'wallet_456',
-      amount: '30.00',
-      transactionType: 'Debit',
-      description: 'Purchase at store',
-      createdAt: DateTime.parse('2023-12-05T16:45:00Z'),
-    ),
-    TransactionModel(
-      transactionId: '3',
-      walletId: 'wallet_789',
-      amount: '100.00',
-      transactionType: 'Credit',
-      description: 'Salary deposit',
-      createdAt: DateTime.parse('2023-12-05T17:20:00Z'),
-    ),
-  ];

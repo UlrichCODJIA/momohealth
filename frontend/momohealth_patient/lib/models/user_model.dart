@@ -1,55 +1,55 @@
 class UserModel {
-  String? userId;
-  String? username;
-  String? email;
-  String? passwordHash;
+  String? id;
   String? mobileNumber;
-  String? isActive;
+  String? email;
+  String? firstName;
+  String? lastName;
+  bool? isVerified;
   DateTime? createdAt;
-  String? lastLogin;
+  DateTime? updatedAt;
 
   UserModel(
-      {this.userId,
-      this.username,
-      this.email,
-      this.passwordHash,
+      {this.id,
       this.mobileNumber,
-      this.isActive,
+      this.email,
+      this.firstName,
+      this.lastName,
+      this.isVerified,
       this.createdAt,
-      this.lastLogin});
+      this.updatedAt});
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    userId = json['id'];
-    username = json['username'];
-    email = json['email'];
-    passwordHash = json['password_hash'];
+    id = json['id'];
     mobileNumber = json['mobile_number'];
-    isActive = json['is_active'];
+    email = json['email'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    isVerified = json['is_verified'];
     createdAt = DateTime.parse("${json['created_at']}");
-    lastLogin = json['last_login'];
+    updatedAt = DateTime.parse("${json['updated_at']}");
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = userId;
-    data['username'] = username;
-    data['email'] = email;
-    data['password_hash'] = passwordHash;
+    data['id'] = id;
     data['mobile_number'] = mobileNumber;
-    data['is_active'] = isActive;
+    data['email'] = email;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['is_verified'] = isVerified;
     data['created_at'] = createdAt;
-    data['last_login'] = lastLogin;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
 
 UserModel user = UserModel(
-  userId: '2',
-  username: 'LOKO Smith',
-  email: 'jane@example.com',
-  passwordHash: 'hashed_password_456',
-  mobileNumber: '987-654-3210',
-  isActive: 'true',
-  createdAt: DateTime.parse('2023-12-05T16:45:00Z'),
-  lastLogin: '2023-12-05T17:30:00Z',
+  id: '123456',
+  mobileNumber: '123-456-7890',
+  email: 'utilisateur@example.com',
+  firstName: 'John',
+  lastName: 'Doe',
+  isVerified: true,
+  createdAt: DateTime.now(),
+  updatedAt: DateTime.now(),
 );

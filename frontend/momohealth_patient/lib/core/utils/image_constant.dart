@@ -12,6 +12,16 @@ class ImageConstant {
 
   static String imgImage47 = '$imagePath/img_image_47.png';
 
+  //urgence
+
+  static String ambulance = '$imagePath/ambulance.png';
+  static String hospital = '$imagePath/hospital.png';
+  static String siren = '$imagePath/siren.png';
+  static String pharmacy = '$imagePath/pharmacy.png';
+  static String firefighter = '$imagePath/firefighter.png';
+
+  // fin urgence
+
   static String imgGroup127 = '$imagePath/img_group_127.svg';
 
   static String imgGroup774 = '$imagePath/img_group_774.svg';
@@ -356,7 +366,8 @@ class ImageConstant {
 
   static String imgGroupRedA200 = '$imagePath/img_group_red_a200.svg';
 
-  static String imgMaskGroup1 = '$imagePath/img_mask_group_1.png';
+  static String imgMaskGroup1 =
+      '$imagePath/img_group_onerrorcontainer_30x36.jpg';
 
   static String imgGroupOnerrorcontainer =
       '$imagePath/img_group_onerrorcontainer.svg';
